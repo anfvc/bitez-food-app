@@ -3,6 +3,7 @@ import cors from "cors";
 import connection from "./Libs/database.js";
 import foodRouter from "./Routes/foodRouter.js";
 import { globalErrorHandler } from "./ErrorHandler/globalErrorHandler.js";
+import userRouter from "./Routes/userRouter.js"
 
 await connection();
 
@@ -13,7 +14,11 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", foodRouter);
+
+app.use("/", userRouter)
+
 app.use("/images", express.static("Uploads"))
+
 const port = process.env.PORT || 5555;
 
 app.listen(port, () => {
