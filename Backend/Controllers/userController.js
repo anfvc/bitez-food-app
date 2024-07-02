@@ -1,52 +1,93 @@
 import User from "../Models/User.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import { hash, compare } from "bcrypt";
 import createHttpError from "http-errors";
 
-export async function loginUser(req, res, next) {}
+export async function loginUser(req, res, next) {
+  const { email, password } = req.body;
+
+  try {
+    const foundUser = await User.findOne({ email });
+
+    //* If the user is not found, let's throw a warning:
+    if (!foundUser) {
+      return next(createHttpError(404, "User does not exist"));
+    }
+
+    //? Let's compare the passwords:
+    const isMatch = await compare(password, foundUser.password);
+
+    //* If password does not match, let's throw a warning:
+    if (!isMatch) {
+      return next(
+        createHttpError(401, "Invalid Credentials. Please try again.")
+      );
+    }
+
+    const token = jwt.sign({ id: foundUser.id }, process.env.SECRET_KEY, {
+      expiresIn: "1h",
+    });
+
+    console.log(`${foundUser} has logged in with token: ${token}`);
+
+    res.status(201).json({
+      id: foundUser._id,
+      message: `${foundUser.email} has successfully logged in.`,
+      token: token,
+    });
+  } catch (error) {
+    return next(createHttpError(500, "Server Error"));
+  }
+}
 
 export async function registerUser(req, res, next) {
   const { name, email, password } = req.body;
 
-  let foundUser;
-
   try {
-    foundUser = await User.findOne({ email: email });
-  } catch (error) {
-    return next(createHttpError(500, "Server Error."));
-  }
+    const foundUser = await User.findOne({ email: email });
 
-  if (foundUser) {
-    next(createHttpError(409, "This user already exists."));
-  } else {
-    try {
-      const newUser = await User.create({
-        name,
-        email,
-        password,
-      });
-
-      console.log(newUser);
-
-      res.status(201).json({
-        id: newUser._id,
-        name: newUser.name,
-        message: `${newUser.name} has been created successfully.`,
-      });
-    } catch (error) {
-      if (error.name === "ValidationError") {
-        console.log(error.errors);
-
-        const errorMessage = Object.values(error.errors)[0].message;
-
-        return next(createHttpError(400, errorMessage));
+    // ? If the user is found, it means, it already exists, send a warning message:
+    if (foundUser) {
+      if (foundUser.email === email) {
+        return next(
+          createHttpError(
+            409,
+            "This user email already exists. Please try a different one."
+          )
+        );
       }
-      next(
-        createHttpError(
-          500,
-          "Registration could not be completed. Please try again."
-        )
-      );
     }
+
+    //? If the user does not exist, proceed to create a new user with a hashed password for security:
+
+    const hashedPassword = await hash(password, 10);
+
+    const newUser = await User.create({
+      name: name,
+      email: email,
+      password: hashedPassword,
+    });
+
+    console.log(newUser);
+
+    res.status(201).json({
+      id: newUser._id,
+      name: newUser.name,
+      message: `${newUser.name} has been created successfully.`,
+    });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      console.log(error.errors);
+
+      const errorMessage = Object.values(error.errors)[0].message;
+
+      return next(createHttpError(400, errorMessage));
+    }
+    next(
+      createHttpError(
+        500,
+        "Registration could not be completed. Please try again."
+      )
+    );
   }
 }
