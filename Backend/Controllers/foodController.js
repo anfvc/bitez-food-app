@@ -5,7 +5,6 @@ import fs from "fs";
 //* Adding a food item:
 export async function addFood(req, res, next) {
   let image_filename = `${req.file.filename}`;
-
   const { name, description, price, category } = req.body;
 
   try {
@@ -17,7 +16,7 @@ export async function addFood(req, res, next) {
       image: image_filename,
     });
 
-    console.log(newFood);
+    console.log("This product has been created:", newFood);
 
     res.status(201).json({
       id: newFood._id,
@@ -25,7 +24,7 @@ export async function addFood(req, res, next) {
       message: "New Food has been created.",
     });
   } catch (error) {
-    next(createHttpError(500, "Food could not be added."));
+    next(createHttpError(500, "Food could not be created."));
   }
 }
 
