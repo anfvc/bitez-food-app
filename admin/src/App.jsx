@@ -4,10 +4,13 @@ import { Routes, Route } from "react-router-dom";
 import Add from "./Views/Add/Add";
 import List from "./Views/List/List";
 import Orders from "./Views/Orders/Orders";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div className="w-full min-h-screen">
+    <div className="min-h-screen">
+      <ToastContainer />
       <Navbar />
       <hr />
       <div className="w-full flex">

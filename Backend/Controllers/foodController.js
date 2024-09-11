@@ -21,7 +21,7 @@ export async function addFood(req, res, next) {
     res.status(201).json({
       id: newFood._id,
       name: newFood.name,
-      message: "New Food has been created.",
+      message: `${name} has been created successfully.`,
     });
   } catch (error) {
     next(createHttpError(500, "Food could not be created."));
@@ -34,9 +34,7 @@ export async function getFoods(req, res, next) {
 
     console.log(getAllFood);
 
-    res.status(200).json({
-      food: getAllFood,
-    });
+    res.status(200).json(getAllFood);
   } catch (error) {
     next(createHttpError(500, "We could not fetch all the foods."));
   }

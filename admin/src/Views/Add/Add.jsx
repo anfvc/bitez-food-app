@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { assets } from "../../assets/admin_assets/assets";
+import { toast } from "react-toastify";
 
 function Add() {
   const [image, setImage] = useState(false);
@@ -26,7 +27,7 @@ function Add() {
 
     const settings = {
       method: "POST",
-      body: formData
+      body: formData,
     };
 
     const response = await fetch(
@@ -41,8 +42,11 @@ function Add() {
         price: "",
         category: "Salad",
       });
-      setImage(false)
+      setImage(false);
+      toast.success(data.message);
+      console.log(data.message);
     } else {
+      toast.error(data.message)
     }
   }
 
@@ -89,7 +93,7 @@ function Add() {
             value={data.description}
           ></textarea>
         </div>
-        <div className="flex gap-24">
+        <div className="flex flex-col md:flex-row gap-24">
           <div>
             <p>Product Category</p>
             <select

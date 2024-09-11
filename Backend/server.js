@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use("/api/food", foodRouter);
 
-app.use("/api", userRouter);
+app.use("/api/user", userRouter);
 
 app.use("/images", express.static("Uploads"));
 
