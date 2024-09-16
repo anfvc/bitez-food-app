@@ -13,7 +13,7 @@ function App() {
       <ToastContainer />
       <Navbar />
       <hr />
-      <div className="w-full flex">
+      <div className="flex">
         <Sidebar />
         <Routes>
           <Route path="/add" element={<Add />} />

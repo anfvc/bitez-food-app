@@ -22,29 +22,67 @@ function List() {
     }
   }
 
+  async function removeFood(id) {
+    const settings = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/JSON",
+      },
+    };
+
+    const response = await fetch(`${url}/api/food/delete/${id}`, settings);
+
+    if (response.ok) {
+      const data = await response.json();
+      setList((data) => data.filter((food) => food._id !== id));
+      toast.success("Food has been successfully removed.")
+    } else {
+      const {error} = await response.json();
+      toast.error("Error deleteing food.")
+    }
+
+    await getList();
+  }
+
   return (
-    <div >
+    <div className="text-center p-12">
       <p>List of Current Foods</p>
-      <div className="list-table p-20">
-        <div className="list-table-format hidden grid-cols-3 md:grid sm:grid-cols-5 sm:px-10 sm:py-8 items-center gap-32 bg-slate-50 border border-black">
-          <b>Image</b>
-          <b>Name</b>
-          <b>Category</b>
-          <b>Price</b>
-          <b>Action</b>
+      {list.length === 0 ? (
+        <p className="text-2xl font-bold">No foods currently</p>
+      ) : (
+        <div className="w-full list-table p-14">
+          <div className="w-full hidden sm:grid sm:grid-cols-5 sm:place-items-center sm:border sm:border-black sm:px-8 sm:py-6 sm:first:border-b-0">
+            <b>Image</b>
+            <b>Name</b>
+            <b>Category</b>
+            <b>Price</b>
+            <b>Action</b>
+          </div>
+          {list.map((item) => {
+            return (
+              <div
+                key={item._id}
+                className="w-full list-table-format grid grid-cols-1 place-content-center gap-4 p-4 sm:grid-cols-5 sm:place-items-center sm:gap-4 sm:px-4 sm:py-12 border border-black sm:first:border-b-0 sm:border-black sm:max-w-screen-lg "
+              >
+                <img
+                  src={`${url}/images/` + item.image}
+                  alt=""
+                  className="w-full object-cover rounded-lg"
+                />
+                <p>{item.name}</p>
+                <p>{item.category}</p>
+                <p>{item.price}</p>
+                <p
+                  onClick={() => removeFood(item._id)}
+                  className="flex justify-center cursor-pointer p-2 border border-black max-w-10"
+                >
+                  X
+                </p>
+              </div>
+            );
+          })}
         </div>
-        {list.map((item) => {
-          return (
-            <div key={item._id} className="list-table-format grid grid-cols-3 md:grid-cols-5 items-center gap-32 px-12 py-20 border md:first:border-b-0 border-black">
-              <img src={`${url}/images/`+item.image} alt="" className="w-full object-cover rounded-lg"/>
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>{item.price}</p>
-              <p className="flex justify-center cursor-pointer p-2 border border-black max-w-10">X</p>
-            </div>
-          );
-        })}
-      </div>
+      )}
     </div>
   );
 }

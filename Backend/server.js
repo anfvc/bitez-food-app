@@ -13,8 +13,6 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(cors());
-
 app.use("/api/food", foodRouter);
 
 app.use("/api/user", userRouter);

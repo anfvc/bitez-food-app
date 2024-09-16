@@ -42,48 +42,25 @@ export async function getFoods(req, res, next) {
 
 export async function deleteFood(req, res, next) {
   try {
-    const options = {
-      new: true,
-      runValidators: true,
-    };
-
-    const findFood = await Food.findById(req.body.id);
+    const { id } = req.params;
+    const findFood = await Food.findById(id);
 
     if (!findFood) {
       return next(createHttpError(404, "Food was not found."));
     }
 
-    if (findFood.softDeletedAt) {
-      return res.status(400).json({
-        message: `${findFood.name} has already been deleted.`,
-      });
-    }
-
-    if (!findFood.image) {
-      return next(createHttpError(404, "The image was not found."));
-    }
-
     fs.unlink(`Uploads/${findFood.image}`, (error) => {
       if (error) {
-        console.error("Error trying to delete the image.", error);
+        next(createHttpError(500, "Image could not be deleted."));
       }
     });
 
-    const softDeletedFood = await Food.findByIdAndUpdate(
-      req.body.id,
-      {
-        softDeletedAt: new Date(),
-      },
-      options
-    );
+    const foodToDelete = await Food.findByIdAndDelete(id);
 
-    if (softDeletedFood) {
-      console.log("Food was successfully deleted.", softDeletedFood);
-      res.status(200).json({
-        message: `${softDeletedFood.name} was successfully deleted.`,
-      });
+    if (!foodToDelete) {
+      return next(createHttpError(404, "Food was not found"));
     } else {
-      next(createHttpError(404, "Food was not found."));
+      res.status(200).json("Food has been successfully removed");
     }
   } catch (error) {
     next(createHttpError(500, "Server Error."));
