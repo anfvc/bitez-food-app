@@ -3,20 +3,6 @@
 @tailwind utilities;
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-:root {
-  font-size: 62.5%;
-}
-
-body {
-  font-size: 1.6rem;
-}
-
-.app {
-  width: 80%;
-  margin: auto;
 }
