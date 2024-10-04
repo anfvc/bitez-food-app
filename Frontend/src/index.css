@@ -15,3 +15,8 @@
 body {
   font-size: 1.6rem;
 }
+
+.app {
+  width: 80%;
+  margin: auto;
+}

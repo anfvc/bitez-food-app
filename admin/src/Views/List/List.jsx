@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-function List() {
+function List({ url }) {
   const [list, setList] = useState([]);
 
-  const url = "http://localhost:5555";
   useEffect(() => {
     getList();
   }, []);
@@ -35,10 +34,10 @@ function List() {
     if (response.ok) {
       const data = await response.json();
       setList((data) => data.filter((food) => food._id !== id));
-      toast.success("Food has been successfully removed.")
+      toast.success("Food has been successfully removed.");
     } else {
-      const {error} = await response.json();
-      toast.error("Error deleteing food.")
+      const { error } = await response.json();
+      toast.error("Error deleteing food.");
     }
 
     await getList();

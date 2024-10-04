@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { assets } from "../../assets/admin_assets/assets";
 import { toast } from "react-toastify";
 
-function Add() {
+function Add({ url }) {
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
@@ -30,10 +30,7 @@ function Add() {
       body: formData,
     };
 
-    const response = await fetch(
-      "http://localhost:5555/api/food/add",
-      settings
-    );
+    const response = await fetch(`${url}/api/food/add`, settings);
     if (response.ok) {
       const data = await response.json();
       setData({
@@ -46,13 +43,16 @@ function Add() {
       toast.success(data.message);
       console.log(data.message);
     } else {
-      toast.error(data.message)
+      toast.error(data.message);
     }
   }
 
   return (
     <div className="w-full">
-      <form className="w-full p-10 flex flex-col gap-10 sm:p-20" onSubmit={handleSubmit}>
+      <form
+        className="w-full p-10 flex flex-col gap-10 sm:p-20"
+        onSubmit={handleSubmit}
+      >
         <div>
           <p>Upload Image</p>
           <label htmlFor="image">
