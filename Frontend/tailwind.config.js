@@ -13,6 +13,9 @@ export default {
       height: {
         "34vw": "34vw", // Custom height using viewport width units
       },
+      height: {
+        "38vw": "38vw",
+      },
     },
   },
   plugins: [],

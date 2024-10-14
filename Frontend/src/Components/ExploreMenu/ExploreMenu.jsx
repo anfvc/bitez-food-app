@@ -4,10 +4,10 @@ import { menu_list } from "../../assets/assets";
 function ExploreMenu({ category, setCategory }) {
   return (
     <div className="explore-menu flex flex-col gap-6" id="explore-menu">
-      <h1 className="font-semibold text-4xl text-[#262626]">
+      <h1 className="font-semibold text-2xl md:text-3xl lg:text-4xl text-[#262626]">
         Explore our Menu
       </h1>
-      <p className="explore-menu-text text-xl max-w-7xl">
+      <p className="explore-menu-text text-lg md:text-xl max-w-7xl">
         Explore a diverse menu offering a delectable array of dishes, carefully
         crafted to satisfy your cravings. Our mission is to elevate your dining
         experience, one exquisite meal at a time.
