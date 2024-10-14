@@ -2,6 +2,7 @@ import basket_icon from "./basket_icon.png";
 import bitezCreme from "./bitez_creme.webp"
 import bitezLogo from "./bitez_dark_green.png";
 import bitezCremePng from "./bitez_creme_png.png"
+import bitezFav from "./bitez_fav.png"
 import header_img from "./header_img.png";
 import search_icon from "./search_icon.png";
 import menu_1 from "./menu_1.png";
@@ -66,6 +67,7 @@ export const assets = {
   bitezLogo,
   bitezCreme,
   bitezCremePng,
+  bitezFav,
   basket_icon,
   header_img,
   search_icon,
