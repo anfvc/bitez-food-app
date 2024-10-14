@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
-      <div className="w-4/5 m-auto">
+      <div className="w-full m-auto max-w-screen-2xl">
         <Navbar setShowLogin={setShowLogin} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -22,7 +22,7 @@ function App() {
           <Route path="/order" element={<PlaceOrder />} />
         </Routes>
       </div>
-      <Footer />
+      <Footer className="w-full m-auto max-w-screen-2xl" />
     </>
   );
 }

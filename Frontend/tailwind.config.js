@@ -12,7 +12,7 @@ export default {
 
       height: {
         "34vw": "34vw",
-        "38vw": "38vw", // Custom height using viewport width units
+        "18vw": "18vw", // Custom height using viewport width units
       },
     },
   },

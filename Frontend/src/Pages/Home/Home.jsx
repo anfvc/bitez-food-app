@@ -9,7 +9,7 @@ function Home() {
   // console.log(category);
 
   return (
-    <div className="">
+    <div className="p-4">
       <Header />
       <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDisplay category={category}/>

@@ -6,7 +6,7 @@ function Navbar({ setShowLogin }) {
   const [menu, setMenu] = useState("Home");
 
   return (
-    <div className="navbar sm:w-lg py-6 flex justify-between items-center">
+    <div className="navbar py-6 flex justify-between items-center p-4">
       <img src={assets.bitezLogo} alt="" className="logo w-20 md:w-36 lg:w-34" />
       <ul className="navbar-menu hidden lg:flex list-none gap-8">
         <Link

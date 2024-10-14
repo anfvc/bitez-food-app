@@ -7,7 +7,7 @@ function Footer() {
       className="footer px-20 bg-[#034620] text-[#f2dfcf] flex flex-col items-center justify-center gap-5 md:px-40 py-20 mt-40"
       id="footer"
     >
-      <div className="footer-content flex flex-col gap-8 items-center w-full lg:grid lg:grid-cols-3 lg:gap-10">
+      <div className="footer-content flex flex-col gap-8 items-center w-full lg:grid lg:grid-cols-3 lg:gap-10 max-w-screen-2xl">
         <div className="footer-content-left flex flex-col items-start gap-8">
           <img src={assets.bitezCremePng} alt="" className="w-44 lg:w-50" />
           <p>
