@@ -11,12 +11,23 @@ export default {
       },
 
       height: {
-        "34vw": "34vw", // Custom height using viewport width units
-      },
-      height: {
-        "38vw": "38vw",
+        "34vw": "34vw",
+        "38vw": "38vw", // Custom height using viewport width units
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".scrollbar-hide": {
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 };

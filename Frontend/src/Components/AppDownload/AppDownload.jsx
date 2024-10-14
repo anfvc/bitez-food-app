@@ -14,13 +14,13 @@ function AppDownload() {
       <div className="w-full app-download-platforms flex flex-col items-center gap-4 md:flex-row md:gap-5 md:justify-center mt-10">
         <img
           src={assets.play_store}
-          alt=""
-          className="w-6/12 sm:max-w-40 cursor-pointer duration-500 hover:scale-90"
+          alt="button of playstore"
+          className="w-5/12 sm:max-w-40 cursor-pointer duration-500 hover:scale-90"
         />
         <img
           src={assets.app_store}
-          alt=""
-          className="w-6/12 sm:max-w-40 cursor-pointer duration-500 hover:scale-90"
+          alt="button of app store"
+          className="w-5/12 sm:max-w-40 cursor-pointer duration-500 hover:scale-90"
         />
       </div>
     </div>

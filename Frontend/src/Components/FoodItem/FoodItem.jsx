@@ -45,7 +45,7 @@ function FoodItem({ id, name, price, description, image }) {
           />
         </div>
         <p className="food-item-desc text-sm">{description}</p>
-        <p className="food-item-price text-[#ff6347] text-lg font-bold mx-0 my-2">
+        <p className="food-item-price text-[#034620] text-lg font-bold mx-0 my-2">
           {price.toFixed(0)}€
         </p>
       </div>

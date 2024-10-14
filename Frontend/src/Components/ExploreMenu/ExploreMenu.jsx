@@ -12,7 +12,7 @@ function ExploreMenu({ category, setCategory }) {
         crafted to satisfy your cravings. Our mission is to elevate your dining
         experience, one exquisite meal at a time.
       </p>
-      <div className="explore-menu-list flex justify-between items-center gap-6 text-center mx-2 my-0 overflow-x-scroll transition duration-200">
+      <div className="explore-menu-list flex justify-between items-center gap-6 text-center mx-2 my-0 overflow-x-scroll scrollbar-hide  transition duration-200">
         {menu_list.map((item, index) => {
           return (
             <div
@@ -27,7 +27,7 @@ function ExploreMenu({ category, setCategory }) {
               <img
                 src={item.menu_image}
                 alt=""
-                className={`min-w-36 w-20 cursor-pointer transition-all ${category === item.menu_name ? "border-4 border-[#ff6347] p-1 rounded-full" : ""}`}
+                className={`min-w-36 w-20 cursor-pointer transition-all ${category === item.menu_name ? "border-4 border-[#034620] p-1 rounded-full" : ""}`}
               />
               <p>{item.menu_name}</p>
             </div>
