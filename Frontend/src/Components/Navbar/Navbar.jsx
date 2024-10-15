@@ -7,7 +7,7 @@ function Navbar({ setShowLogin }) {
 
   return (
     <div className="navbar py-6 flex justify-between items-center p-4">
-      <img src={assets.bitezLogo} alt="" className="logo w-20 md:w-36 lg:w-34" />
+      <Link to="/"><img src={assets.bitezLogo} alt="" className="logo w-20 md:w-36 lg:w-34" /></Link>
       <ul className="navbar-menu hidden lg:flex list-none gap-8">
         <Link
           to="/"
@@ -57,7 +57,7 @@ function Navbar({ setShowLogin }) {
       <div className="navbar-right flex items-center gap-4 md:gap-6 lg:gap-10">
         <img src={assets.search_icon} alt="" className="w-6 sm:w-8" />
         <div className="navbar-search-icon relative">
-          <img src={assets.basket_icon} alt="" className="w-6 sm:w-8" />
+          <Link to="/cart"><img src={assets.basket_icon} alt="" className="w-6 sm:w-8" /></Link>
           <div className="dot absolute min-w-3 min-h-3 bg-[#034620] rounded-lg -top-2.5 -right-1.5"></div>
         </div>
         <button
