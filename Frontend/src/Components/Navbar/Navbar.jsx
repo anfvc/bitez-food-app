@@ -8,7 +8,7 @@ function Navbar({ setShowLogin }) {
   return (
     <div className="navbar py-6 flex justify-between items-center p-4">
       <Link to="/"><img src={assets.bitezLogo} alt="" className="logo w-20 md:w-36 lg:w-34" /></Link>
-      <ul className="navbar-menu hidden lg:flex list-none gap-8">
+      <ul className="navbar-menu hidden text-xl font-medium md:flex list-none gap-8">
         <Link
           to="/"
           onClick={() => setMenu("Home")}

@@ -1,15 +1,18 @@
 import React from "react";
 import { assets } from "../../assets/assets";
+import { FaTwitter } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 function Footer() {
   return (
     <div
-      className="footer px-20 bg-[#034620] text-[#f2dfcf] flex flex-col items-center justify-center gap-5 md:px-40 py-20 mt-40"
+      className="bottom-0 footer px-10 md:px-22 lg:px-40 py-10 bg-[#034620] text-[#f2dfcf] flex flex-col items-center justify-center gap-5  md:py-20 mt-40"
       id="footer"
     >
       <div className="footer-content flex flex-col gap-8 items-center w-full lg:grid lg:grid-cols-3 lg:gap-10 max-w-screen-2xl">
         <div className="footer-content-left flex flex-col items-start gap-8">
-          <img src={assets.bitezCremePng} alt="" className="w-44 lg:w-50" />
+          <img src={assets.bitezCremePng} alt="" className="w-24 md:w-50" />
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla,
             recusandae! Quae natus qui provident molestias consequuntur aut
@@ -17,13 +20,9 @@ function Footer() {
             deleniti suscipit quia eius!
           </p>
           <div className="footer-social-icons flex justify-center gap-4 cursor-pointer">
-            <img
-              src={assets.facebook_icon}
-              alt=""
-              className="w-14 text-[#034620]"
-            />
-            <img src={assets.twitter_icon} alt="" className="w-14" />
-            <img src={assets.linkedin_icon} alt="" className="w-14" />
+            <FaFacebook className="text-4xl"  />
+            <FaTwitter  className="text-4xl"/>
+            <FaLinkedin className="text-4xl" />
           </div>
         </div>
         <div className="footer-content-center w-full flex flex-col items-start lg:items-center">
