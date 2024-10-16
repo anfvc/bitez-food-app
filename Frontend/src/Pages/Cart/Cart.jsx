@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import { ImCross } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart, calculateTotalInCart } =
+    useContext(StoreContext);
+
+  const navigate = useNavigate();
 
   return (
     <div className="cart mt-20 px-5 md:px-8">
@@ -52,20 +56,28 @@ function Cart() {
           <div className="">
             <div className="cart-total-details flex justify-between items-center">
               <p className="text-2xl">Subtotal</p>
-              <p className="text-2xl">{0}€</p>
+              <p className="text-2xl">{calculateTotalInCart()}€</p>
             </div>
             <hr className="my-2" />
             <div className="cart-total-details flex justify-between items-center">
               <p className="text-2xl">Delivery Fee</p>
-              <p className="text-2xl">{2}€</p>
+              <p className="text-2xl">
+                {calculateTotalInCart() === 0 ? 0 : 5}€
+              </p>
             </div>
             <hr className="my-2" />
             <div className="cart-total-details flex justify-between items-center">
               <b className="text-2xl">Total</b>
-              <p className="text-2xl">{0}€</p>
+              <p className="text-2xl">
+                {calculateTotalInCart() === 0 ? 0 : calculateTotalInCart() + 5}€
+              </p>
             </div>
           </div>
-          <button className="w-full border border-black p-2 bg-[#034620] text-white font-semibold text-xl">
+          {/* When pressed the button, take me to the other page */}
+          <button
+            onClick={() => navigate("/order")}
+            className="w-full border border-black p-2 bg-[#034620] text-white font-semibold text-xl"
+          >
             Proceed to Checkout
           </button>
         </div>
