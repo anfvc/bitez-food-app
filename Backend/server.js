@@ -19,10 +19,11 @@ app.use("/api/user", userRouter);
 
 app.use("/images", express.static("Uploads"));
 
+app.use(globalErrorHandler);
+
 const port = process.env.PORT || 5555;
 
 app.listen(port, () => {
   console.log(`Server is listening to port: ${port}`);
 });
 
-app.use(globalErrorHandler);

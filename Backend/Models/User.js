@@ -7,28 +7,28 @@ const userSchema = new Schema(
       type: String,
       required: true,
       minLength: [4, "Name must be minimum 4 characters long."],
-      maxLength: [25, "Name must be maximum 25 characters long."]
+      maxLength: [25, "Name must be maximum 25 characters long."],
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      vaidate: {
-        validator: function(value) {
+      validate: {
+        validator: function (value) {
           return validator.isEmail(value); //* Checking if provided email is valid.
         },
-        message: "Email is not in a correct format. Please check."
-      }
+        message: "Email is not in a correct format. Please check.",
+      },
     },
     password: {
       type: String,
       required: true,
       validate: {
         validator: function (value) {
-          return validator.isStrongPassword(value, {minLength: 5})
+          return validator.isStrongPassword(value, {minLength: 3})
         },
-        message: "Password must be min. 5 characters, have a lowercase, a uppercase, a number and a special character."
-      }
+        message: "Password must have numbers, symbols"
+      },
     },
     cartData: {
       type: Object,
@@ -41,3 +41,7 @@ const userSchema = new Schema(
 const User = model("User", userSchema);
 
 export default User;
+
+const testPassword = "hola";
+
+console.log(validator.isStrongPassword(testPassword));

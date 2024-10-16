@@ -2,6 +2,7 @@ import User from "../Models/User.js";
 import jwt from "jsonwebtoken";
 import { hash, compare } from "bcrypt";
 import createHttpError from "http-errors";
+import createTokenForNewUser from "../Middleware/token.js";
 
 export async function loginUser(req, res, next) {
   const { email, password } = req.body;
@@ -48,36 +49,39 @@ export async function registerUser(req, res, next) {
 
     // ? If the user is found, it means, it already exists, send a warning message:
     if (foundUser) {
-      if (foundUser.email === email) {
-        return next(
-          createHttpError(
-            409,
-            "This user email already exists. Please try a different one."
-          )
-        );
-      }
+      return next(
+        createHttpError(
+          409,
+          "This user email already exists. Please try a different one."
+        )
+      );
     }
 
     //? If the user does not exist, proceed to create a new user with a hashed password for security:
 
     const hashedPassword = await hash(password, 10);
 
-    const newUser = await User.create({
+    const newUser = new User({
       name: name,
       email: email,
       password: hashedPassword,
     });
 
+    await newUser.save();
+
     console.log(newUser);
 
-    res.status(201).json({
+    const token = createTokenForNewUser(newUser._id);
+
+    res.status(200).json({
       id: newUser._id,
       name: newUser.name,
       message: `${newUser.name} has been created successfully.`,
+      token: token,
     });
   } catch (error) {
     if (error.name === "ValidationError") {
-      console.log(error.errors);
+      console.log("Validation Error: ", error.errors);
 
       const errorMessage = Object.values(error.errors)[0].message;
 
