@@ -4,7 +4,7 @@ import { ImCross } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cartItems, food_list, removeFromCart, calculateTotalInCart } =
+  const { cartItems, food_list, removeFromCart, calculateTotalInCart, url } =
     useContext(StoreContext);
 
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function Cart() {
                 <div key={index}>
                   <div className="cart-items-title grid grid-cols-6 items-center place-items-center cart-items-item my-6 mx-0">
                     <img
-                      src={item.image}
+                      src={url+"/images/"+item.image}
                       alt=""
                       className="w-7/12 rounded-xl"
                     />

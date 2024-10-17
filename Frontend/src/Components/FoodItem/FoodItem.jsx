@@ -3,12 +3,12 @@ import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/StoreContext";
 
 function FoodItem({ id, name, price, description, image }) {
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
 
   return (
     <div className="food-item w-full m-auto rounded-md shadow-md transiton duration-300">
       <div className="food-item-image-container relative">
-        <img className="food-item-image w-full rounded-md" src={image} alt="" />
+        <img className="food-item-image w-full rounded-md" src={url+"/images/"+image} alt="" />
         {/* When item Q is 0, show me a + to increase the product's quantity. When item is not 0, show me two buttons (+, -) to control the Q of the item */}
         {!cartItems[id] ? (
           <img

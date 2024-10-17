@@ -1,12 +1,19 @@
 import { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 
 function Navbar({ setShowLogin }) {
   const [menu, setMenu] = useState("Home");
 
-  const { calculateTotalInCart } = useContext(StoreContext);
+  const { calculateTotalInCart, token, setToken } = useContext(StoreContext);
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  }
 
   return (
     <div className="navbar py-6 flex justify-between items-center p-4">
@@ -70,16 +77,36 @@ function Navbar({ setShowLogin }) {
             <img src={assets.basket_icon} alt="" className="w-6 sm:w-8" />
           </Link>
           {/* If the sum is 0, do not show the the dot in the cart icon, if sum is > 0, show it */}
-          <div className={`${calculateTotalInCart() === 0 ? "" : "dot absolute min-w-3 min-h-3 bg-[#034620] rounded-lg -top-2.5 -right-1.5"}`}>
-
-          </div>
+          <div
+            className={`${calculateTotalInCart() === 0 ? "" : "dot absolute min-w-3 min-h-3 bg-[#034620] rounded-lg -top-2.5 -right-1.5"}`}
+          ></div>
         </div>
-        <button
-          className="border py-1 px-2 bg-[#034620] lg:px-4 rounded-xl hover:bg-[#e66312] text-white transition duration-300"
-          onClick={() => setShowLogin(true)}
-        >
-          Sign In
-        </button>
+        {!token ? (
+          <button
+            className="border py-1 px-2 bg-[#034620] lg:px-4 rounded-xl hover:bg-[#e66312] text-white transition duration-300"
+            onClick={() => setShowLogin(true)}
+          >
+            Sign In
+          </button>
+        ) : (
+          <div className="navbar-profile relative group">
+            <img src={assets.profile_icon} alt="" />
+            <ul className="navprofile-dropdown absolute hidden right-0 z-10 group-hover:flex flex-col mt-2 bg-white py-6 px-10 gap-2 border border-[#034620] outline-[#034620]">
+              <li className="flex justify-center items-center my-1 cursor-pointer">
+                <img src={assets.bag_icon} alt="" />
+                <p className="hover:text-[#034620]">Orders</p>
+              </li>
+              <hr />
+              <li
+                className="flex justify-center my-1 cursor-pointer"
+                onClick={handleLogout}
+              >
+                <img src={assets.logout_icon} alt="" />
+                <p className="hover:text-[#034620]">Logout</p>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

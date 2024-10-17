@@ -23,12 +23,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      validate: {
-        validator: function (value) {
-          return validator.isStrongPassword(value, {minLength: 3})
-        },
-        message: "Password must have numbers, symbols"
-      },
     },
     cartData: {
       type: Object,
@@ -41,7 +35,3 @@ const userSchema = new Schema(
 const User = model("User", userSchema);
 
 export default User;
-
-const testPassword = "hola";
-
-console.log(validator.isStrongPassword(testPassword));
