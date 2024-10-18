@@ -89,16 +89,16 @@ function Navbar({ setShowLogin }) {
             Sign In
           </button>
         ) : (
-          <div className="navbar-profile relative group">
+          <div className="navbar-profile relative group cursor-pointer">
             <img src={assets.profile_icon} alt="" />
             <ul className="navprofile-dropdown absolute hidden right-0 z-10 group-hover:flex flex-col mt-2 bg-white py-6 px-10 gap-2 border border-[#034620] outline-[#034620]">
-              <li className="flex justify-center items-center my-1 cursor-pointer">
+              <li className="flex justify-center items-center gap-2 my-1 cursor-pointer">
                 <img src={assets.bag_icon} alt="" />
                 <p className="hover:text-[#034620]">Orders</p>
               </li>
               <hr />
               <li
-                className="flex justify-center my-1 cursor-pointer"
+                className="flex justify-center my-1 cursor-pointer gap-2"
                 onClick={handleLogout}
               >
                 <img src={assets.logout_icon} alt="" />

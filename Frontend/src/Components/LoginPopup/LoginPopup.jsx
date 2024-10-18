@@ -42,14 +42,15 @@ function LoginPopup({ setShowLogin }) {
         console.log(data);
         setToken(data.token);
         localStorage.setItem("token", data.token);
-        alert(data.name)
+        alert(data.message);
         setShowLogin(false);
       } else {
         const { error } = await response.json();
         throw new Error(error.message);
       }
     } catch (error) {
-      alert(error.message)
+      // alert(error.message);
+      console.error(error.message);
     }
   }
 

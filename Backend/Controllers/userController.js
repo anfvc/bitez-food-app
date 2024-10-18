@@ -18,15 +18,14 @@ export async function loginUser(req, res, next) {
         return next(createHttpError(400, "Wrong password! Please try again."));
       }
 
-      const token = jwt.sign(
-        { id: foundUser._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "15min" }
-      );
+      const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "15min",
+      });
 
+      console.log(`${foundUser} has logged in with token: ${token}`);
       res.status(200).json({
         id: foundUser._id,
-        name: `${foundUser.name} has logged in`,
+        message: `${foundUser.name} has logged in`,
         token,
       });
     } else {
@@ -34,20 +33,6 @@ export async function loginUser(req, res, next) {
 
       return next(createHttpError(404, "User does not exist"));
     }
-
-    //? Let's compare the passwords:
-
-    const token = jwt.sign({ id: foundUser.id }, process.env.SECRET_KEY, {
-      expiresIn: "1h",
-    });
-
-    console.log(`${foundUser} has logged in with token: ${token}`);
-
-    res.status(201).json({
-      id: foundUser._id,
-      message: `${foundUser.email} has successfully logged in.`,
-      token: token,
-    });
   } catch (error) {
     if (error.name === "ValidationError") {
       const errorMessage = Object.values(error.errors)[0].message;
@@ -95,16 +80,15 @@ export async function registerUser(req, res, next) {
         password: hashedPassword,
       });
 
-      const token = jwt.sign(
-        { id: newUser._id },
-        process.env.JWT_SECRET,
-        { expiresIn: "15min" }
-      );
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "15min",
+      });
 
       res.status(200).json({
         id: newUser._id,
         name: newUser.name,
         token,
+        message: `${newUser.name} has successfully signed up`,
       });
     } else {
       return next(

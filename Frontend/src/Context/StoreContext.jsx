@@ -9,7 +9,7 @@ function StoreContextProvider({ children }) {
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 
-  function addToCart(itemId) {
+  async function addToCart(itemId) {
     if (!cartItems[itemId]) {
       //if the itemId is not in the cartItems object
       setCartItems((prevValue) => ({ ...prevValue, [itemId]: 1 })); //* this form is safer, BEST PRACTICE
@@ -19,13 +19,35 @@ function StoreContextProvider({ children }) {
         [itemId]: prevValue[itemId] + 1,
       }));
     }
+
+    if (token) {
+      await fetch(`${url}/api/cart/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token
+        },
+        body: JSON.stringify({ itemId }),
+      });
+    }
   }
 
-  function removeFromCart(itemId) {
+  async function removeFromCart(itemId) {
     setCartItems((prevValue) => ({
       ...prevValue,
       [itemId]: prevValue[itemId] - 1,
     }));
+
+    if (token) {
+      await fetch(`${url}/api/cart/remove`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token,
+        },
+        body: JSON.stringify({itemId})
+      })
+    }
   }
 
   // useEffect(() => {
@@ -50,22 +72,20 @@ function StoreContextProvider({ children }) {
       const response = await fetch(`${url}/api/food/list`);
       if (response.ok) {
         const data = await response.json();
-        setFoodList(data)
+        setFoodList(data);
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
     async function loadData() {
-      await getFoodList()
+      await getFoodList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
       }
     }
 
-    loadData()
+    loadData();
   }, []);
 
   const contextValue = {
