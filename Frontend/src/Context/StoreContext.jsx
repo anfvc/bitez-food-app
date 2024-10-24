@@ -25,7 +25,7 @@ function StoreContextProvider({ children }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          token
+          token,
         },
         body: JSON.stringify({ itemId }),
       });
@@ -45,8 +45,8 @@ function StoreContextProvider({ children }) {
           "Content-Type": "application/json",
           token,
         },
-        body: JSON.stringify({itemId})
-      })
+        body: JSON.stringify({ itemId }),
+      });
     }
   }
 
@@ -77,11 +77,29 @@ function StoreContextProvider({ children }) {
     } catch (error) {}
   }
 
+  async function loadCartData(token) {
+    const response = await fetch(`${url}/api/cart/get`, {
+      method: "POST",
+      body: JSON.stringify({}),
+      headers: {
+        "Content-Type": "application/JSON",
+        token,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setCartItems(data.cartData);
+    }
+  }
+
   useEffect(() => {
     async function loadData() {
       await getFoodList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
+        await loadCartData(localStorage.getItem("token")); //* Loading the data that is in the cart as long as there is a token available. When the user refreshes the page, we should still see the data
       }
     }
 

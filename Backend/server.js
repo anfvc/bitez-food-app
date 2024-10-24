@@ -5,6 +5,7 @@ import foodRouter from "./Routes/foodRouter.js";
 import { globalErrorHandler } from "./ErrorHandler/globalErrorHandler.js";
 import userRouter from "./Routes/userRouter.js";
 import cartRouter from "./Routes/cartRouter.js";
+import orderRouter from "./Routes/orderRouter.js";
 
 await connection();
 
@@ -15,13 +16,10 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/food", foodRouter);
-
 app.use("/api/user", userRouter);
-
 app.use("/api/cart", cartRouter);
-
+app.use("/api/order", orderRouter);
 app.use("/images", express.static("Uploads"));
-
 app.use(globalErrorHandler);
 
 const port = process.env.PORT || 5555;

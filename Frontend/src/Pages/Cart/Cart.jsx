@@ -1,24 +1,32 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import { ImCross } from "react-icons/im";
+import { ImPlus } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cartItems, food_list, removeFromCart, calculateTotalInCart, url } =
-    useContext(StoreContext);
+  const {
+    cartItems,
+    food_list,
+    addToCart,
+    removeFromCart,
+    calculateTotalInCart,
+    url,
+  } = useContext(StoreContext);
 
   const navigate = useNavigate();
 
   return (
     <div className="cart mt-20 px-5 md:px-8">
       <div className="class-items">
-        <div className="cart-items-title grid grid-cols-6 place-items-center text-gray-500">
+        <div className="cart-items-title grid grid-cols-7 place-items-center text-gray-500">
           <p>Items</p>
           <p>Title</p>
           <p>Price</p>
           <p>Quantity</p>
           <p>Total</p>
-          <p>Remove</p>
+          <p>Add More</p>
+          <p>Remove Item</p>
         </div>
         <br />
         <hr />
@@ -27,9 +35,9 @@ function Cart() {
             {
               return (
                 <div key={index}>
-                  <div className="cart-items-title grid grid-cols-6 items-center place-items-center cart-items-item my-6 mx-0">
+                  <div className="cart-items-title grid grid-cols-7 items-center place-items-center cart-items-item my-6 mx-0">
                     <img
-                      src={url+"/images/"+item.image}
+                      src={url + "/images/" + item.image}
                       alt=""
                       className="w-7/12 rounded-xl"
                     />
@@ -37,6 +45,8 @@ function Cart() {
                     <p>{item.price}€</p>
                     <p>x {cartItems[item._id]}</p>
                     <p>{item.price * cartItems[item._id]}€</p>
+                    <ImPlus onClick={() => addToCart(item._id)} className="text-green-700 cursor-pointer"
+                      title="Remove Item" />
                     <ImCross
                       onClick={() => removeFromCart(item._id)}
                       className="text-red-700 cursor-pointer"

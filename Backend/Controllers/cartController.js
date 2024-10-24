@@ -25,8 +25,10 @@ export async function removeFromCart(req, res, next) {
     let userData = await User.findById(req.body.userId);
     let cartData = await userData.cartData;
 
-    if (cartData[req.body.itemId] > 0) {
+    if (cartData[req.body.itemId] > 1) {
       cartData[req.body.itemId] -= 1;
+    } else {
+      delete cartData[req.body.itemId];
     }
 
     await User.findByIdAndUpdate(req.body.userId, { cartData });
@@ -43,7 +45,7 @@ export async function getCart(req, res) {
   try {
     let userData = await User.findById(req.body.userId);
     let cartData = await userData.cartData;
-    res.status(200).json(cartData);
+    res.status(200).json({ cartData });
   } catch (error) {
     next(createHttpError(500, "Server Error"));
   }

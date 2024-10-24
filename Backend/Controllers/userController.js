@@ -19,7 +19,7 @@ export async function loginUser(req, res, next) {
       }
 
       const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "15min",
+        expiresIn: "30min",
       });
 
       console.log(`${foundUser} has logged in with token: ${token}`);
