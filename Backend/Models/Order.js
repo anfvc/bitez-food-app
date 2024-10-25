@@ -15,6 +15,10 @@ const orderSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  address: {
+    type: Object,
+    required: true,
+  },
   payment: {
     type: Boolean,
     default: false,

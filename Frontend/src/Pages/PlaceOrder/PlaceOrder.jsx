@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { StoreContext } from "../../Context/StoreContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PlaceOrder() {
   const { calculateTotalInCart, token, food_list, cartItems, url } =
@@ -31,28 +33,43 @@ function PlaceOrder() {
         orderItems.push(itemInfo);
       }
     });
+    console.log(orderItems);
     let orderData = {
       address: data,
       items: orderItems,
       amount: calculateTotalInCart() + 5,
     };
 
+    console.log(orderData);
+
     let response = await fetch(`${url}/api/order/place`, {
       method: "POST",
-      body: JSON.stringify({ orderData }),
+      body: JSON.stringify(orderData),
       headers: {
-        "Content-Type": "application/JSON",
+        "Content-Type": "application/json",
         token,
       },
     });
 
     if (response.ok) {
-      const session_url = await response.json();
+      const { session_url } = await response.json();
+      // const data = await response.json()
+      // console.log(response);
       window.location.replace(session_url);
     } else {
-      alert("Error")
+      alert("Error");
     }
   }
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/cart");
+    } else if (calculateTotalInCart() === 0) {
+      navigate("/cart");
+    }
+  }, [token]);
 
   return (
     <form

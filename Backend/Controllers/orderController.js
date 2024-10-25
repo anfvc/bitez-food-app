@@ -6,7 +6,8 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 //* To place an order for the frontend:
-async function placeOrder(req, res) {
+export async function placeOrder(req, res, next) {
+  console.log("Request received: ", req.body);
   const { userId, items, amount, address } = req.body;
 
   const frontendUrl = "http://localhost:5173";
@@ -51,17 +52,58 @@ async function placeOrder(req, res) {
     const session = await stripe.checkout.sessions.create({
       line_items: line_items,
       mode: "payment",
-       //? if payment successful, we are redirected to this page after payment
+      //? if payment successful, we are redirected to this page after payment
       success_url: `${frontendUrl}/verify?success=true&orderId=${newOrder._id}`,
-      cancel_url: `${frontendUrl}/verify?success=false&orderId=${newOrder._id}`
+      cancel_url: `${frontendUrl}/verify?success=false&orderId=${newOrder._id}`,
     });
 
     res.status(200).json({
-      session_url: session.url
-    })
+      session_url: session.url,
+    });
   } catch (error) {
-    next(createHttpError(500, "Server Error"))
+    next(createHttpError(500, "Server Error"));
   }
 }
 
-export default placeOrder;
+export async function verfyOder(req, res, next) {
+  const { orderId, success } = req.body;
+
+  try {
+    if (success) {
+      await Order.findByIdAndUpdate(orderId, { payment: true });
+      res.status(200).json({
+        message: "Order is paid.",
+      });
+    } else {
+      await Order.findByIdAndDelete(orderId);
+      next(createHttpError(500, "Payment has failed."));
+    }
+  } catch (error) {
+    next(createHttpError(500, "Server Error"));
+  }
+}
+
+//* User orders for frontend:
+
+export async function userOrders(req, res, next) {
+  const { userId } = req.body;
+  try {
+    const orders = await Order.find({ userId });
+    res.status(200).json({
+      orders,
+    });
+  } catch (error) {
+    next(createHttpError(500, "Server Error"));
+  }
+}
+
+//* Listing all orders for the admin panel:
+
+export async function listOrders(req, res, next) {
+  try {
+    const orders = await Order.find({});
+    res.status(200).json(orders);
+  } catch (error) {
+    next(createHttpError(500, "Server Error"));
+  }
+}
