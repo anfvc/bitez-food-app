@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { ImCross } from "react-icons/im";
 
 function List({ url }) {
   const [list, setList] = useState([]);
@@ -37,14 +38,14 @@ function List({ url }) {
       toast.success("Food has been successfully removed.");
     } else {
       const { error } = await response.json();
-      toast.error("Error deleteing food.");
+      toast.error(error);
     }
 
     await getList();
   }
 
   return (
-    <div className="text-center p-12">
+    <div className="text-center p-6 lg:p-14">
       <p>List of Current Foods</p>
       {list.length === 0 ? (
         <p className="text-2xl font-bold">No foods currently</p>
@@ -70,12 +71,12 @@ function List({ url }) {
                 />
                 <p>{item.name}</p>
                 <p>{item.category}</p>
-                <p>{item.price}</p>
+                <p>{item.price}€</p>
                 <p
                   onClick={() => removeFood(item._id)}
-                  className="flex justify-center cursor-pointer p-2 border border-black max-w-10"
+                  className="flex md:justify-center cursor-pointer p-2 border border-black max-w-10 bg-red-600 text-white"
                 >
-                  X
+                  <ImCross />
                 </p>
               </div>
             );

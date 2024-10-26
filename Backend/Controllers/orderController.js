@@ -107,3 +107,20 @@ export async function listOrders(req, res, next) {
     next(createHttpError(500, "Server Error"));
   }
 }
+
+//* API for updating the status of the order:
+
+export async function updateStatusOfOrder(req, res, next) {
+  const { orderId } = req.body;
+  try {
+    await Order.findByIdAndUpdate(orderId, {
+      status: req.body.status,
+    });
+
+    res.status(200).json({
+      message: "Status has been updated."
+    })
+  } catch (error) {
+    next(createHttpError(500, "Server Error"))
+  }
+}

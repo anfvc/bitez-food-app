@@ -36,7 +36,10 @@ function MyOrders() {
       <div className="container flex flex-col gap-8 mt-10">
         {data.map((order, index) => {
           return (
-            <div key={index} className="my-orders-order grid  grid-cols-3 md:grid-cols-6 items-center gap-10 text-xl px-10 py-8 border border-[#034620]">
+            <div
+              key={index}
+              className="my-orders-order grid  grid-cols-3 md:grid-cols-6 items-center gap-10 text-xl px-10 py-8 border border-[#034620]"
+            >
               <img src={assets.parcel_icon} alt="" className="w-6/12" />
               <p>
                 {order.items.map((item, index) => {
@@ -47,13 +50,19 @@ function MyOrders() {
                   }
                 })}
               </p>
-              <p>{order.amount}€</p>
-              <p>Items: {order.items.length}</p>
+              <p className="font-bold text-[#034620]">{order.amount}€</p>
+              <p>Items: <span className="font-bold text-[#034620]">{order.items.length}</span></p>
               <p>
-                <span className="text-[#034620]">&#x25cf;</span>
-                <b className="font-bold text-gray-600 text-sm md:text-md">{order.status}</b>
+                <span className="text-md">Status:</span> <b className="font-bold text-[#034620] text-sm md:text-lg">
+                  {order.status}
+                </b>
               </p>
-              <button className="p-2 border border-black bg-[#034620] text-white cursor-pointer">Track Order</button>
+              <button
+                onClick={fetchAllUserOrders}
+                className="p-2 border border-black bg-[#034620] text-white cursor-pointer"
+              >
+                Track Order
+              </button>
             </div>
           );
         })}
