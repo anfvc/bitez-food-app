@@ -20,17 +20,26 @@ function Orders({ url }) {
   }
 
   async function handleStatusChange(e, orderId) {
-    console.log(e, orderId);
-    const response = await fetch(`${url}/api/order/status`, {
-      method: "POST",
-      body: JSON.stringify({ orderId, status: e.target.value }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      // console.log(e, orderId);
+      const response = await fetch(`${url}/api/order/status`, {
+        method: "POST",
+        body: JSON.stringify({ orderId, status: e.target.value }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    if (response.okf) {
-      await fetchAllOrders();
+      if (response.ok) {
+        await fetchAllOrders();
+        const data = await response.json();
+        console.log(data);
+        toast.success(data.message);
+      } else {
+        toast.error(`We could not update the status of this order ${orderId}`);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -38,23 +47,33 @@ function Orders({ url }) {
     fetchAllOrders();
   }, []);
 
+  // console.log(orders);
+
   return (
-    <div className="order add p-8 lg:p-14">
+    <div className="order add p-6 lg:p-14">
       <h3>Order Page</h3>
       <div className="orders p-8 lg:p-14">
-        {orders.map((order, index) => (
+        {orders.map((order) => (
           <div
             className="order-item grid grid-cols-1 place-items-start lg:grid-cols-5 md:items-center md:place-items-start gap-10  p-4 lg:p-8 my-10 border border-[#034620]"
-            key={index}
+            key={order._id}
           >
             <img src={assets.parcel_icon} alt="" />
             <div className="">
               <p className="order-item-food font-bold">
                 {order.items.map((item, index) => {
                   if (index === order.items.length - 1) {
-                    return item.name + " x " + item.quantity;
+                    return (
+                      <span key={index}>
+                        {item.name + " x " + item.quantity}
+                      </span>
+                    );
                   } else {
-                    return item.name + " x " + item.quantity + ", ";
+                    return (
+                      <span key={index}>
+                        {item.name + " x " + item.quantity + ", "}
+                      </span>
+                    );
                   }
                 })}
               </p>

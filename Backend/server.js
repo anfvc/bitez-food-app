@@ -20,7 +20,11 @@ app.use(express.json());
 
 app.use(cors());
 
+//? Serving Frontend (folder)
 // app.use(express.static(path.join(__dirname, "Frontend/dist"))); //? specify the path for our frontend (current directory + path we want to get in) // deploy-starter/frontend/dist
+
+//? Serving admin (folder)
+// app.use(express.static(path.join(__dirname, "admin/dist"))); //? specify the path for our frontend (current directory + path we want to get in) // deploy-starter/frontend/dist
 
 app.use("/api/food", foodRouter);
 app.use("/api/user", userRouter);
@@ -31,6 +35,15 @@ app.use("/images", express.static("Uploads"));
 // app.get("*", (req, res) => {
 //   res.sendFile(__dirname + "Frontend/dist");
 // });
+
+//? Fallback routes for each app (frontend)
+// app.get("/Frontend/*", (req, res) => {
+//   res.sendFile(__dirname + "Frontend/dist", "index.html");
+// })
+
+// app.get("/admin/*", (req, res) => {
+//   res.sendFile(__dirname + "admin/dist", "index.html");
+// })
 
 const port = process.env.PORT || 5555;
 

@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const url = "http://localhost:5555";
+  const url = import.meta.env.VITE_ADMIN_URL;
 
   return (
     <div className="min-h-screen">

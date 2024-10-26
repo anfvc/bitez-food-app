@@ -72,7 +72,7 @@ export async function verfyOder(req, res, next) {
     if (success) {
       await Order.findByIdAndUpdate(orderId, { payment: true });
       res.status(200).json({
-        message: "Order is paid.",
+        message: `Order ${orderId} has been successfully paid.`,
       });
     } else {
       await Order.findByIdAndDelete(orderId);
@@ -118,7 +118,7 @@ export async function updateStatusOfOrder(req, res, next) {
     });
 
     res.status(200).json({
-      message: "Status has been updated."
+      message: `We have successfully updated the status of order: ${orderId}`
     })
   } catch (error) {
     next(createHttpError(500, "Server Error"))
