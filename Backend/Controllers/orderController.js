@@ -69,7 +69,7 @@ export async function verfyOder(req, res, next) {
   const { orderId, success } = req.body;
 
   try {
-    if (success) {
+    if (success === "true") {
       await Order.findByIdAndUpdate(orderId, { payment: true });
       res.status(200).json({
         message: `Order ${orderId} has been successfully paid.`,

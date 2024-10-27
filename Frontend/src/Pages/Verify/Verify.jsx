@@ -12,17 +12,23 @@ function Verify() {
   const navigate = useNavigate();
 
   async function verifyPayment() {
-    const response = await fetch(`${url}/api/order/verify`, {
-      method: "POST",
-      body: JSON.stringify({ success, orderId }),
-      headers: {
-        "Content-Type": "application/JSON",
-      },
-    });
+    try {
+      const response = await fetch(`${url}/api/order/verify`, {
+        method: "POST",
+        body: JSON.stringify({ success, orderId }),
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+      });
 
-    if (response.ok) {
-      navigate("/myorders");
-    } else {
+      if (response.ok) {
+        navigate("/myorders");
+      } else {
+        console.error("Verification failed: ", await response.text());
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error Verifying payment: ",error);
       navigate("/");
     }
   }
