@@ -66,7 +66,7 @@ export async function placeOrder(req, res, next) {
 }
 
 export async function verifyOder(req, res, next) {
-  const { orderId, success } = req.method === "GET" ? req.query : req.body;
+  const { orderId, success } = req.body;
 
   try {
     if (success === "true") {

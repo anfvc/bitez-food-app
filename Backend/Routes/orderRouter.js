@@ -11,7 +11,6 @@ import {
 const router = express.Router();
 
 router.post("/place", authMiddleware, placeOrder);
-router.get("/verify", verifyOder); //? adding this for debugging
 router.post("/verify", verifyOder); //? corrected typo
 router.post("/userorders", authMiddleware, userOrders);
 router.get("/list", listOrders);
