@@ -7,7 +7,7 @@ let storage;
 if (process.env.NODE_ENV === "DEVELOPMENT") {
   storage = multer.diskStorage({
     destination: (req, file, callback) => {
-      callback(null, "client/public");
+      callback(null, "Backend/Uploads");
     },
     filename: (req, file, callback) => {
       return callback(null, `${Date.now()} ${file.originalname}`); //Filename is unique with Date.now()
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "DEVELOPMENT") {
 } else {
   storage = multer.diskStorage({
     destination: (req, file, callback) => {
-      callback(null, "client/dist");
+      callback(null, "Backend/Uploads");
     },
     filename: (req, file, callback) => {
       return callback(null, `${Date.now()} ${file.originalname}`); //Filename is unique with Date.now()
