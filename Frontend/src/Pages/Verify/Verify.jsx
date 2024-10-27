@@ -17,7 +17,7 @@ function Verify() {
         method: "POST",
         body: JSON.stringify({ success, orderId }),
         headers: {
-          "Content-Type": "application/JSON",
+          "Content-Type": "application/json",
         },
       });
 
@@ -25,6 +25,8 @@ function Verify() {
 
       if (response.ok) {
         navigate("/myorders");
+      } else if(response.status === 404) {
+        console.error("Route not found: ", await response.text()); //? adding for debugging
       } else {
         console.error("Verification failed: ", await response.text());
         navigate("/");
