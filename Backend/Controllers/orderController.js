@@ -10,7 +10,7 @@ export async function placeOrder(req, res, next) {
   console.log("Request received: ", req.body);
   const { userId, items, amount, address } = req.body;
 
-  const frontendUrl = "http://localhost:5173";
+  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
   try {
     const newOrder = await Order.create({
@@ -118,9 +118,9 @@ export async function updateStatusOfOrder(req, res, next) {
     });
 
     res.status(200).json({
-      message: `We have successfully updated the status of order: ${orderId}`
-    })
+      message: `We have successfully updated the status of order: ${orderId}`,
+    });
   } catch (error) {
-    next(createHttpError(500, "Server Error"))
+    next(createHttpError(500, "Server Error"));
   }
 }
