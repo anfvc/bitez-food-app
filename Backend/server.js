@@ -41,7 +41,7 @@ app.use("/api/food", foodRouter);
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
-app.use("/images", express.static("Uploads"));
+app.use("/images", express.static("Backend/Uploads"));
 
 const port = process.env.PORT || 5555;
 
