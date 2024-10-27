@@ -41,7 +41,7 @@ app.use("/api/food", foodRouter);
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
-app.use("/images", express.static("Backend/Uploads"));
+app.use("/images", express.static("Backend/Uploads")); //* <-- had to add Backend in front of uploads for it to work on prod
 
 const port = process.env.PORT || 5555;
 

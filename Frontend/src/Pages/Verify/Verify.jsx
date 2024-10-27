@@ -21,6 +21,8 @@ function Verify() {
         },
       });
 
+      console.log("RRESPONSE STATUS: ", response.status);
+
       if (response.ok) {
         navigate("/myorders");
       } else {
