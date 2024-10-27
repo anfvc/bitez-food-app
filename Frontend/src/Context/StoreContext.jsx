@@ -72,7 +72,7 @@ function StoreContextProvider({ children }) {
       const response = await fetch(`${url}/api/food/list`);
       if (response.ok) {
         const data = await response.json();
-        console.log(response.data);
+        console.log(data);
         setFoodList(data);
       }
     } catch (error) {
