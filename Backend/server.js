@@ -18,7 +18,9 @@ const __dirname = path.dirname(__filename); // directory name of the current fil
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: "https://bitez-food-app.onrender.com"
+}));
 
 //* Serving Frontend (frontend)
 app.use(express.static(path.join(__dirname, "../Frontend/dist"))); //? specify the path for our frontend (current directory + path we want to get in) // deploy-starter/frontend/dist
