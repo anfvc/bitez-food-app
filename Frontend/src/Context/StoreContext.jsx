@@ -68,11 +68,18 @@ function StoreContextProvider({ children }) {
   }
 
   async function getFoodList() {
-    const response = await fetch(`${url}/api/food/list`);
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      setFoodList(data);
+    try {
+      const response = await fetch(`${url}/api/food/list`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setFoodList(data);
+      } else {
+        console.error(error);
+      }
+
+    } catch (error) {
+      console.log(error);
     }
   }
 
