@@ -76,7 +76,7 @@ function StoreContextProvider({ children }) {
         console.log(data);
         setFoodList(data);
       } else {
-        console.error(error);
+        console.error("Error Response: ",response);
       }
 
     } catch (error) {
