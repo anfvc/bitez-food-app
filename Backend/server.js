@@ -19,6 +19,7 @@ const __dirname = path.dirname(__filename); // directory name of the current fil
 app.use(express.json());
 
 app.use(cors({
+  credentials: true,
   origin: "https://bitez-food-app.onrender.com"
 }));
 
