@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use(cors({
   credentials: true,
-  origin: "https://bitez-food-app.onrender.com"
+  origin: ["https://bitez-food-app.onrender.com", "http://localhost:5555"]
 }));
 
 //* Serving Frontend (frontend)
