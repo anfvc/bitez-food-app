@@ -4,7 +4,7 @@ import { ImCross } from "react-icons/im";
 import { ImPlus } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
-function Cart() {
+function Cart({ setShowLogin }) {
   const {
     cartItems,
     food_list,
@@ -12,9 +12,21 @@ function Cart() {
     removeFromCart,
     calculateTotalInCart,
     url,
+    token,
   } = useContext(StoreContext);
 
   const navigate = useNavigate();
+
+  function handleCheckout() {
+    //* Only go to the checkout:
+    //? If there's no token, show the login:
+    if (!token) {
+      setShowLogin(true);
+    } else {
+      //? If token is available, take me to the order page:
+      navigate("/order");
+    }
+  }
 
   return (
     <div className="cart mt-20 px-5 md:px-8">
@@ -45,8 +57,11 @@ function Cart() {
                     <p>{item.price}€</p>
                     <p>x {cartItems[item._id]}</p>
                     <p>{item.price * cartItems[item._id]}€</p>
-                    <ImPlus onClick={() => addToCart(item._id)} className="text-green-700 cursor-pointer"
-                      title="Remove Item" />
+                    <ImPlus
+                      onClick={() => addToCart(item._id)}
+                      className="text-green-700 cursor-pointer"
+                      title="Remove Item"
+                    />
                     <ImCross
                       onClick={() => removeFromCart(item._id)}
                       className="text-red-700 cursor-pointer"
@@ -85,7 +100,7 @@ function Cart() {
           </div>
           {/* When pressed the button, take me to the other page */}
           <button
-            onClick={() => navigate("/order")}
+            onClick={handleCheckout}
             className="w-full border border-black p-2 bg-[#034620] text-white font-semibold text-xl"
           >
             Proceed to Checkout
