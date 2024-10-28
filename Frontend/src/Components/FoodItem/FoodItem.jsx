@@ -36,12 +36,12 @@ function FoodItem({ id, name, price, description, image }) {
         )}
       </div>
       <div className="food-item-info p-3">
-        <div className="food-item-name-rating flex justify-between items-center mb-4">
+        <div className="food-item-name-rating flex flex-col gap-2 md:flex-row md:justify-between md:items-center mb-4">
           <p>{name}</p>
           <img
             src={assets.rating_stars}
             alt="rating stars image"
-            className="w-30"
+            className="w-20 md:w-30"
           />
         </div>
         <p className="food-item-desc text-sm">{description}</p>

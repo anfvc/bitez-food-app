@@ -51,7 +51,7 @@ app.use("/api/order", orderRouter);
 const folderForUploads =
   process.env.NODE_ENV === "DEVELOPMENT" ? "Uploads" : "Backend/Uploads"; //? Serving the folder for uploading the images dynamically depending on the NODE_ENV
 
-app.use("/images", express.static(path.join(__dirname, folderForUploads))); //* <-- had to add Backend in front of uploads for it to work on prod
+app.use("/images", express.static(folderForUploads)); //* <-- had to add Backend in front of uploads for it to work on prod
 
 const port = process.env.PORT || 5555;
 
