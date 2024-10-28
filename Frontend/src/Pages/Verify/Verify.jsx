@@ -24,16 +24,22 @@ function Verify() {
       console.log("RRESPONSE STATUS: ", response.status);
 
       if (response.ok) {
-        navigate("/myorders");
-      } else if(response.status === 404) {
+        setTimeout(() => {
+          navigate("/myorders");
+        }, 4000);
+      } else if (response.status === 404) {
         console.error("Route not found: ", await response.text()); //? adding for debugging
       } else {
         console.error("Verification failed: ", await response.text());
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 4000);
       }
     } catch (error) {
-      console.error("Error Verifying payment: ",error);
-      navigate("/");
+      console.error("Error Verifying payment: ", error);
+      setTimeout(() => {
+        navigate("/");
+      }, 4000);
     }
   }
 

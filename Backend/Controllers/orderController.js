@@ -10,7 +10,7 @@ export async function placeOrder(req, res, next) {
   console.log("Request received: ", req.body);
   const { userId, items, amount, address } = req.body;
 
-  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+  const frontendUrl = process.env.NODE_ENV === "DEVELOPMENT" ? "http://localhost:5173" : "https://bitez-food-app.onrender.com";
 
   try {
     const newOrder = await Order.create({
