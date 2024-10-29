@@ -55,9 +55,9 @@ function LoginPopup({ setShowLogin }) {
   }
 
   return (
-    <div className="login-popup absolute z-10 w-full h-full grid bg-[#00000090]">
+    <div className="login-popup absolute z-10 w-full min-h-screen grid bg-[#00000090]">
       <form
-        className="login-popup-container place-self-center py-16 px-10 w-3/12 rounded-xl min-w-64 max-w-lg bg-white flex flex-col gap-8 "
+        className="login-popup-container place-self-center py-16 px-10 w-10/12 rounded-xl min-w-64 md:max-w-lg bg-white flex flex-col gap-8 "
         onSubmit={handleSubmit}
       >
         <div className="login-popup-title flex justify-between">

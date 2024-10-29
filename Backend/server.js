@@ -32,9 +32,9 @@ app.use(
 //* Serving Frontend (frontend)
 app.use(express.static(path.join(__dirname, "../Frontend/dist"))); //? specify the path for our frontend (current directory + path we want to get in) // deploy-starter/frontend/dist
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "../Frontend/dist", "index.html");
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "../Frontend/dist", "index.html");
+// });
 
 //* Serving admin (frontend)
 app.use(express.static(path.join(__dirname, "admin/dist"))); //? specify the path for our frontend (current directory + path we want to get in) // deploy-starter/frontend/dist
@@ -52,6 +52,10 @@ const folderForUploads =
   process.env.NODE_ENV === "DEVELOPMENT" ? "Uploads" : "Backend/Uploads"; //? Serving the folder for uploading the images dynamically depending on the NODE_ENV
 
 app.use("/images", express.static(folderForUploads)); //* <-- had to add Backend in front of uploads for it to work on prod
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../Frontend/dist", "index.html")); //*Remove this if it does not work
+});
 
 const port = process.env.PORT || 5555;
 

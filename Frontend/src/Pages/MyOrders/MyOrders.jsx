@@ -51,9 +51,15 @@ function MyOrders() {
                 })}
               </p>
               <p className="font-bold text-[#034620]">{order.amount}€</p>
-              <p>Items: <span className="font-bold text-[#034620]">{order.items.length}</span></p>
               <p>
-                <span className="text-md">Status:</span> <b className="font-bold text-[#034620] text-sm md:text-lg">
+                Items:{" "}
+                <span className="font-bold text-[#034620]">
+                  {order.items.length}
+                </span>
+              </p>
+              <p>
+                <span className="text-md">Status:</span>{" "}
+                <b className="font-bold text-[#034620] text-sm md:text-lg">
                   {order.status}
                 </b>
               </p>
