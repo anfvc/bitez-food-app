@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, "../Frontend/dist"))); //? specify t
 // });
 
 //* Serving admin (frontend)
-app.use(express.static(path.join(__dirname, "admin/dist"))); //? specify the path for our frontend (current directory + path we want to get in) // deploy-starter/frontend/dist
+app.use(express.static(path.join(__dirname, "../admin/dist"))); //? specify the path for our frontend (current directory + path we want to get in) // deploy-starter/frontend/dist
 
 app.get("/admin/*", (req, res) => {
   res.sendFile(__dirname + "../admin/dist", "index.html");
