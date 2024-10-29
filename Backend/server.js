@@ -54,7 +54,7 @@ const folderForUploads =
 app.use("/images", express.static(folderForUploads)); //* <-- had to add Backend in front of uploads for it to work on prod
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../Frontend/dist", "index.html")); //*Remove this if it does not work
+  res.sendFile(path.join(__dirname, "../Frontend/dist", "index.html")); //? This route is catching all unmatched routes that I don't have as API routes and it's serving my index.html
 });
 
 const port = process.env.PORT || 5555;
